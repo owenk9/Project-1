@@ -75,15 +75,15 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,Integer
     public List<Object[]> repoWhereQUARTER();
 
     // Statistics by user
-    @Query(value = "SELECT c.user_id,\r\n"
-            + "SUM(o.quantity) as quantity,\r\n"
-            + "SUM(o.quantity * o.price) as sum,\r\n"
-            + "AVG(o.price) as avg,\r\n"
-            + "Min(o.price) as min,\r\n"
-            + "max(o.price) as max\r\n"
-            + "FROM order_details o\r\n"
-            + "INNER JOIN orders p ON o.order_id = p.order_id\r\n"
-            + "INNER JOIN user c ON p.user_id = c.user_id\r\n"
-            + "GROUP BY c.user_id;", nativeQuery = true)
+    @Query(value = "SELECT c.name,\r\n" +
+            "    SUM(o.quantity) AS quantity,\r\n" +
+            "    SUM(o.quantity * o.price) AS sum,\r\n" +
+            "    AVG(o.price) AS avg,\r\n" +
+            "    MIN(o.price) AS min,\r\n" +
+            "    MAX(o.price) AS max\r\n" +
+            "FROM order_details o\r\n" +
+            "INNER JOIN orders p ON o.order_id = p.order_id\r\n" +
+            "INNER JOIN users c ON p.user_id = c.id\r\n" +
+            "GROUP BY c.id;", nativeQuery = true)
     public List<Object[]> reportCustomer();
 }

@@ -162,7 +162,7 @@
 <!-- ////////////////////////////////////////////////////////////////////////////-->
 
 
-<div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true" data-img="/admin/theme-assets/images/backgrounds/02.jpg">
+<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow " data-scroll-to-active="true" data-img="/admin/theme-assets/images/backgrounds/02.jpg">
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
             <li class="nav-item mr-auto"><a class="navbar-brand" href="index.html"><img class="brand-logo" alt="Chameleon admin logo" src="/admin/theme-assets/images/logo/logo.png"/>
@@ -189,7 +189,6 @@
                     <li><a class="menu-item" href="/admin/category"><i class="ft-credit-card"></i> Category</a></li>
                     <li><a class="menu-item" href="/admin/user"><i class="ft-credit-card"></i> User</a></li>
                     <li><a class="menu-item" href="/admin/orders"><i class="ft-credit-card"></i> Order</a></li>
-
                 </ul>
             </li>
             <li class="nav-item has-sub">
@@ -200,6 +199,7 @@
                     <li><a class="menu-item" th:href="@{/admin/reportYear}"><i class="ft-credit-card"></i> Statistic Year</a></li>
                     <li><a class="menu-item" th:href="@{/admin/reportMonth}"><i class="ft-credit-card"></i> Statistic Month</a></li>
                     <li><a class="menu-item" th:href="@{/admin/reportQuarter}"><i class="ft-credit-card"></i> Statistic Quarter</a></li>
+                    <li><a class="menu-item" th:href="@{/admin/reportUser}"><i class="ft-credit-card"></i> Statistic User</a></li>
                 </ul>
             </li>
         </ul>
@@ -211,21 +211,21 @@
     <div class="content-wrapper">
         <div class="content-wrapper-before"></div>
         <div class="content-header row">
-            <div class="content-header-left col-md-4 col-12 mb-2">
-                <h3 class="content-header-title">Products</h3>
-            </div>
-            <div class="content-header-right col-md-8 col-12">
-                <div class="breadcrumbs-top float-md-right">
-                    <div class="breadcrumb-wrapper mr-1">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a>
-                            </li>
-                            <li class="breadcrumb-item active">Products
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
+            <!--            <div class="content-header-left col-md-4 col-12 mb-2">-->
+            <!--                <h3 class="content-header-title">Products</h3>-->
+            <!--            </div>-->
+            <!--            <div class="content-header-right col-md-8 col-12">-->
+            <!--                <div class="breadcrumbs-top float-md-right">-->
+            <!--                    <div class="breadcrumb-wrapper mr-1">-->
+            <!--                        <ol class="breadcrumb">-->
+            <!--                            <li class="breadcrumb-item"><a href="index.html">Home</a>-->
+            <!--                            </li>-->
+            <!--                            <li class="breadcrumb-item active">Products-->
+            <!--                            </li>-->
+            <!--                        </ol>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
         </div>
         <div class="content-body">
             <!-- Basic Tables start -->
@@ -233,10 +233,10 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Products</h4>
+                            <h4 class="card-title text-uppercase" th:text="${title}"></h4>
                             <!--                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>-->
                             <div class="table-wtf mt-3">
-                                <form th:action="@{/admin1/paginationProducts}" th:method="post">
+                                <form th:action="@{'/admin/'+${link}}" th:method="post">
                                     <input type="text" name="search" placeholder="What do you need?" th:value="${search}">
                                     <button type="submit" class="site-btn">SEARCH</button>
                                 </form>
@@ -282,8 +282,8 @@
                                         </tr>
                                         </thead>
                                         <tbody id="productTableBody">
-                                            <tr th:each="item, iState : ${listReportCommon}">
-                                            <td>[[${iState.index + 1}]]</td>
+                                        <tr th:each="item, iState : ${paginatedRepo}">
+                                            <td th:text="${currentPage + iState.index}"></td>
                                             <td>[[${item[0]}]]</td>
                                             <td>[[${item[1]}]]</td>
                                             <td>[[${#numbers.formatDecimal(item[2], 1, 'DEFAULT', 0, 'DEFAULT')} + ' đ']]</td>
@@ -298,21 +298,16 @@
                             <!--Pagination-->
                             <!--                            <p th:text="${totalPages}"></p>-->
                             <!--                            <p th:text="${totalProducts}"></p>-->
-<!--                            <nav aria-label="Page navigation example">-->
-<!--                                <ul class="pagination">-->
-<!--                                    <li class="page-item" th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">-->
-<!--                                        <a class="page-link"-->
-<!--                                           th:text="${pageNumber}"-->
-<!--                                           th:href="@{/admin1/paginationProducts(currentPage=${pageNumber}, search=${search})}">-->
-<!--                                        </a>-->
-<!--                                    </li>-->
-                                    <!--                                    <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">-->
-                                    <!--                                        <a class="page-link" th:href="@{/admin1/paginationProducts(currentPage=${currentPage + 1})}" aria-label="Next">-->
-                                    <!--                                            <span aria-hidden="true">&raquo;</span>-->
-                                    <!--                                        </a>-->
-                                    <!--                                    </li>-->
-<!--                                </ul>-->
-<!--                            </nav>-->
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item" th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
+                                        <a class="page-link"
+                                           th:text="${pageNumber}"
+                                           th:href="@{'/admin/'+${link}(currentPage=${pageNumber}, search=${search})}">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                             <!--End Pagination-->
                         </div>
                     </div>
