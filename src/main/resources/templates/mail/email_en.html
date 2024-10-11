@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác nhận đặt hàng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        h1 {
+            text-align: center;
+            color: #2e8b57;
+        }
+        .info {
+            margin-bottom: 20px;
+        }
+        .info p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            font-weight: bold;
+            text-align: right;
+        }
+        .footer {
+            text-align: center;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Chúc mừng bạn đã đặt hàng thành công</h1>
+
+    <div class="info">
+        <p>Địa chỉ giao hàng: <strong>[[${orderFinal.address}]]</strong></p>
+        <p>Ngày đặt hàng: <strong>[[${orderFinal.orderDate}]]</strong></p>
+    </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Tên sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item:${cartItems}">
+            <td>[[${item.name}]]</td>
+            <td>[[${item.quantity}]]</td>
+            <td>[[${item.unitPrice}*${item.quantity}]]</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p class="total">Tổng tiền: <strong>[[${orderFinal.amount}]]</strong></p>
+
+    <div class="footer">
+        <p>Cảm ơn bạn đã tin tưởng chúng tôi - Chúc bạn một ngày vui vẻ</p>
+    </div>
+</div>
+</body>
+</html>

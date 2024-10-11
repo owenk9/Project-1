@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ogani | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Humberger Begin -->
+<div class="humberger__menu__overlay"></div>
+<div class="humberger__menu__wrapper">
+    <div class="humberger__menu__logo">
+        <a href="#"><img src="img/logo.png" alt=""></a>
+    </div>
+    <div class="humberger__menu__cart">
+        <ul>
+            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+        </ul>
+        <div class="header__cart__price">item: <span>$150.00</span></div>
+    </div>
+    <div class="humberger__menu__widget">
+        <div class="header__top__right__language">
+            <img src="img/language.png" alt="">
+            <div>English</div>
+            <span class="arrow_carrot-down"></span>
+            <ul>
+                <li><a href="#">Spanis</a></li>
+                <li><a href="#">English</a></li>
+            </ul>
+        </div>
+        <div class="header__top__right__auth">
+            <a href="#"><i class="fa fa-user"></i> Login</a>
+        </div>
+    </div>
+    <nav class="humberger__menu__nav mobile-menu">
+        <ul>
+            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="shop-grid.html">Shop</a></li>
+            <li><a href="#">Pages</a>
+                <ul class="header__menu__dropdown">
+                    <li><a href="shop-details.html">Shop Details</a></li>
+                    <li><a href="shoping-cart.html">Shoping Cart</a></li>
+                    <li><a href="checkout.html">Check Out</a></li>
+                    <li><a href="blog-details.html">Blog Details</a></li>
+                </ul>
+            </li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <div id="mobile-menu-wrap"></div>
+    <div class="header__top__right__social">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+    </div>
+    <div class="humberger__menu__contact">
+        <ul>
+            <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+            <li>Free Shipping for all Order of $99</li>
+        </ul>
+    </div>
+</div>
+<!-- Humberger End -->
+
+<!-- Header Section Begin -->
+<header th:replace="~{/web/fragments/header :: header}"></header>
+<!-- Header Section End -->
+
+<style>
+    /* CSS chung cho body */
+    body {
+        font-family: 'Cairo', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column; /* Đặt hướng flex theo chiều dọc */
+        min-height: 100vh; /* Đảm bảo chiều cao toàn màn hình */
+    }
+
+    /* Căn chỉnh các phần tử theo chiều dọc */
+    header, footer {
+        width: 100%;
+    }
+
+    /* Container cho form OTP */
+    .otp-container {
+        background-color: white;
+        padding: 40px;
+        max-width: 400px; /* Chiều rộng tối đa */
+        width: 100%;
+        margin: 20px auto; /* Căn giữa container */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        text-align: center;
+        flex-grow: 1; /* Để phần form OTP co giãn phù hợp */
+    }
+
+    /* Tiêu đề của form OTP */
+    .otp-container h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    /* Các trường input */
+    .otp-container .form-control {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 18px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    /* Hiệu ứng hover cho input */
+    .otp-container .form-control:focus {
+        border-color: #7fad39;
+        box-shadow: 0 0 5px rgba(127, 173, 57, 0.5);
+        outline: none;
+    }
+
+    /* Label của form */
+    .otp-container label {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        display: block;
+        text-align: left; /* Căn trái cho nhãn */
+        margin-bottom: 5px;
+    }
+
+    /* Nút xác nhận */
+    .otp-container .btn-custom {
+        width: 100%;
+        padding: 14px;
+        background-color: #7fad39;
+        color: white;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Hiệu ứng hover cho nút */
+    .otp-container .btn-custom:hover {
+        background-color: #689f38;
+    }
+
+    /* Căn footer xuống dưới cùng */
+    footer {
+        background-color: #f8f9fa;
+        padding: 20px 0;
+        text-align: center;
+        width: 100%;
+        margin-top: auto; /* Đẩy footer xuống dưới */
+    }
+
+</style>
+
+<div class="otp-container">
+    <h2>Xác Thực OTP</h2>
+    <form th:action="@{/confirmOtpRegister}" th:object="${user}" method="POST">
+        <div class="mb-3">
+            <input type="text" hidden="hidden" th:field="*{email}" />
+            <input type="text" hidden="hidden" th:field="*{password}" />
+            <input type="text" hidden="hidden" th:field="*{name}" />
+            <label for="otp" class="form-label">Nhập mã OTP</label>
+            <input type="text" class="form-control" id="otp" name="otp" maxlength="6" placeholder="••••••" required>
+        </div>
+        <button type="submit" class="btn btn-custom">Xác nhận</button>
+    </form>
+</div>
+
+<!-- Footer Section Begin -->
+<footer th:replace="~{/web/fragments/footer :: footer}"></footer>
+<!-- Footer Section End -->
+
+<!-- Js Plugins -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.nice-select.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/mixitup.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ogani | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Humberger Begin -->
+<div class="humberger__menu__overlay"></div>
+<div class="humberger__menu__wrapper">
+    <div class="humberger__menu__logo">
+        <a href="#"><img src="img/logo.png" alt=""></a>
+    </div>
+    <div class="humberger__menu__cart">
+        <ul>
+            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+        </ul>
+        <div class="header__cart__price">item: <span>$150.00</span></div>
+    </div>
+    <div class="humberger__menu__widget">
+        <div class="header__top__right__language">
+            <img src="img/language.png" alt="">
+            <div>English</div>
+            <span class="arrow_carrot-down"></span>
+            <ul>
+                <li><a href="#">Spanis</a></li>
+                <li><a href="#">English</a></li>
+            </ul>
+        </div>
+        <div class="header__top__right__auth">
+            <a href="#"><i class="fa fa-user"></i> Login</a>
+        </div>
+    </div>
+    <nav class="humberger__menu__nav mobile-menu">
+        <ul>
+            <li class="active"><a href="index.html">Home</a></li>
+            <li><a href="shop-grid.html">Shop</a></li>
+            <li><a href="#">Pages</a>
+                <ul class="header__menu__dropdown">
+                    <li><a href="shop-details.html">Shop Details</a></li>
+                    <li><a href="shoping-cart.html">Shoping Cart</a></li>
+                    <li><a href="checkout.html">Check Out</a></li>
+                    <li><a href="blog-details.html">Blog Details</a></li>
+                </ul>
+            </li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <div id="mobile-menu-wrap"></div>
+    <div class="header__top__right__social">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <a href="#"><i class="fa fa-pinterest-p"></i></a>
+    </div>
+    <div class="humberger__menu__contact">
+        <ul>
+            <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+            <li>Free Shipping for all Order of $99</li>
+        </ul>
+    </div>
+</div>
+<!-- Humberger End -->
+
+<!-- Header Section Begin -->
+<header th:replace="~{/web/fragments/header :: header}"></header>
+<!-- Header Section End -->
+
+<style>
+    /* Container cho form đăng ký */
+    .register-container {
+        background-color: white;
+        padding: 40px;
+        max-width: 600px; /* Tăng chiều rộng tối đa của form */
+        width: 100%;
+        margin: 100px auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        text-align: left; /* Căn chỉnh text sang bên trái */
+    }
+
+    /* Tiêu đề của form */
+    .register-container h2 {
+        font-size: 32px;
+        margin-bottom: 20px;
+        color: #333;
+        font-weight: 600;
+        text-align: center; /* Căn giữa tiêu đề */
+    }
+
+    /* Label các trường input */
+    .register-container label {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        display: block; /* Đảm bảo label hiển thị thành một dòng riêng */
+        margin-bottom: 5px; /* Tạo khoảng cách giữa label và input */
+    }
+
+    /* Các input trong form */
+    .register-container .form-control {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 18px;
+        transition: all 0.3s ease;
+    }
+
+    /* Hiệu ứng hover cho input */
+    .register-container .form-control:focus {
+        border-color: #7fad39;
+        box-shadow: 0 0 5px rgba(127, 173, 57, 0.5);
+        outline: none;
+    }
+
+    /* Nút đăng ký */
+    .register-container .btn-custom {
+        width: 100%;
+        padding: 14px;
+        background-color: #7fad39;
+        color: white;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Hiệu ứng hover cho nút đăng ký */
+    .register-container .btn-custom:hover {
+        background-color: #689f38;
+    }
+
+    /* Nút đăng ký bằng Google */
+    .register-container .btn-google {
+        width: 100%;
+        padding: 14px;
+        background-color: #db4437;
+        color: white;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Hiệu ứng hover cho nút Google */
+    .register-container .btn-google:hover {
+        background-color: #c33d2e;
+    }
+</style>
+
+<div class="register-container">
+    <h2>Đăng Ký</h2>
+    <form th:action="@{/register}" method="POST" th:object="${user}">
+        <div class="mb-3">
+            <label for="fullName" class="form-label">Họ và Tên</label>
+            <input
+                    type="text"
+                    th:field="*{name}"
+                    class="form-control"
+                    id="fullName"
+                    name="fullName"
+                    placeholder="Nhập họ và tên"
+                    required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Địa chỉ Email</label>
+            <input
+                    type="email"
+                    th:field="*{email}"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    placeholder="Nhập email"
+                    required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Mật khẩu</label>
+            <input
+                    type="password"
+                    th:field="*{password}"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    placeholder="Nhập mật khẩu"
+                    required>
+        </div>
+        <button type="submit" class="btn btn-custom">Đăng ký</button>
+    </form>
+    <button class="btn btn-google">Đăng ký bằng Google</button>
+</div>
+
+<!-- Footer Section Begin -->
+<footer th:replace="~{/web/fragments/footer :: footer}"></footer>
+<!-- Footer Section End -->
+
+<!-- Js Plugins -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.nice-select.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/mixitup.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/main.js"></script>
+
+
+</body>
+
+</html>

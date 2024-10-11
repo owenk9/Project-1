@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="header">
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="header__top__left">
+                            <ul>
+                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                                <li>Free Shipping for all Order of $99</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="header__top__right">
+                            <div class="header__top__right__social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                            </div>
+                            <div class="header__top__right__language">
+                                <img src="img/language.png" alt="">
+                                <div>English</div>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="#">Spanis</a></li>
+                                    <li><a href="#">English</a></li>
+                                </ul>
+                            </div>
+                            <div class="header__top__right__auth">
+                                <th:block th:if="${isLoggedIn}">
+                                    <p>Hello, <span th:text="${username}">User</span>!</p>
+                                    <a th:href="@{/logout}"><i class="fa fa-user"></i> Logout</a>
+                                </th:block>
+                                <th:block th:unless="${isLoggedIn}">
+                                    <a th:href="@{/login}"><i class="fa fa-user"></i> Login</a>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a th:href="@{/}"><img src="img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a th:href="@{/}">Home</a></li>
+                            <li><a th:href="@{/products}">Shop</a></li>
+                            <th:block th:if="${isLoggedIn}">
+                            <li><a href="#">Pages</a>
+                                    <ul class="header__menu__dropdown">
+                                        <li><a th:href="@{/profile}">Profile</a></li>
+                                        <li><a th:href="@{/cart}">Shopping Cart</a></li>
+                                        <li><a th:href="@{/checkout}">Check Out</a></li>
+                                    </ul>
+                            </li>
+                            </th:block>
+                            <th:block th:unless="${isLoggedIn}">
+                                <li><a th:href="@{/cart}">Shopping Cart</a>
+                            </th:block>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__cart">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                            <li><a th:href=@{/cart}><i class="fa fa-shopping-bag"></i> <span>[[${numberOfItemsInCart}]]</span></a></li>
+                        </ul>
+                        <div class="header__cart__price">item: <span>[[${totalPrice}]]</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="hero__categories">
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span>All departments</span>
+                        </div>
+                        <ul>
+                            <li th:each="categoryItem : ${categoryList}">
+                                <a th:href="@{/filteredProducts(minamount=0, maxamount=100000, categoryId=${categoryItem.categoryId},page=1)}">
+                                    [[${categoryItem.categoryName}]]
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+<!--                            <form action="#">-->
+<!--                                <div class="hero__search__categories">-->
+<!--                                    All Categories-->
+<!--                                    <span class="arrow_carrot-down"></span>-->
+<!--                                </div>-->
+<!--                                <input type="text" placeholder="What do yo u need?">-->
+<!--                                <button type="submit" class="site-btn">SEARCH</button>-->
+<!--                            </form>-->
+                            <form th:action="@{/searchProducts}" method="post">
+                                <div class="hero__search__categories">
+                                    All Categories
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
+                                <input type="text" name="search" placeholder="What do you need?" th:value="${search}">
+                                <button type="submit" class="site-btn">SEARCH</button>
+                            </form>
+                        </div>
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+65 11.188.888</h5>
+                                <span>support 24/7 time</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+</th:block>
+</body>
+</html>
