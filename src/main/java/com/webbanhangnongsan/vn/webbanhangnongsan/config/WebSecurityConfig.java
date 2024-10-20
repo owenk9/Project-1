@@ -41,7 +41,7 @@ public class WebSecurityConfig {
         http.csrf(csrf -> csrf.disable()); // Disable CSRF
 
         http.authorizeHttpRequests(authorize -> authorize
-                        //.requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/checkout").hasRole("USER")
                         .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()

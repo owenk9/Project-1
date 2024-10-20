@@ -161,7 +161,6 @@
 
 <!-- ////////////////////////////////////////////////////////////////////////////-->
 
-
 <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true" data-img="/admin/theme-assets/images/backgrounds/02.jpg">
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
@@ -172,9 +171,9 @@
     </div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class=" nav-item"><a href="index.html"><i class="ft-home"></i><span class="menu-title" data-i18n="">Dashboard</span></a>
+            <li class=" nav-item"><a th:href="@{/admin/dashboard}"><i class="ft-home"></i><span class="menu-title" data-i18n="">Dashboard</span></a>
             </li>
-            <li class=" nav-item"><a href="charts.html"><i class="ft-pie-chart"></i><span class="menu-title" data-i18n="">Charts</span></a>
+            <li class=" nav-item"><a th:href="@{/admin/charts}"><i class="ft-pie-chart"></i><span class="menu-title" data-i18n="">Charts</span></a>
             </li>
 <!--            <li class="active"><a href="/admin/category"><i class="ft-credit-card"></i><span class="menu-title" data-i18n="">Category</span></a>-->
 <!--            </li>-->
@@ -189,7 +188,6 @@
                     <li><a class="menu-item" href="/admin/category"><i class="ft-credit-card"></i> Category</a></li>
                     <li><a class="menu-item" href="/admin/user"><i class="ft-credit-card"></i> User</a></li>
                     <li><a class="menu-item" href="/admin/orders"><i class="ft-credit-card"></i> Order</a></li>
-
                 </ul>
             </li>
             <li class="nav-item has-sub">
