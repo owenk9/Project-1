@@ -82,7 +82,7 @@ public class ReportController {
         User user = userRepository.findByEmail(principal.getName());
         model.addAttribute("user", user);
 
-        OrderDetail orderDetail = new OrderDetail();
+//        OrderDetail orderDetail = new OrderDetail();
 //        model.addAttribute("orderDetail", orderDetail);
 //        List<Object[]> listReportCommon = orderDetailRepository.repoWhereMonth();
 //        model.addAttribute("listReportCommon", listReportCommon);

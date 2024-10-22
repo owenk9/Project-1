@@ -41,6 +41,7 @@ public class UserController extends CommonAdminController{
     @PostMapping("/addUser")
     public String addNewUser(@ModelAttribute("adminUser") User user, Model model) {
         try {
+
             User savedUser = userRepository.save(user);
             model.addAttribute("message", "Thêm người dùng thành công");
             model.addAttribute("user", savedUser);

@@ -80,6 +80,12 @@
                         <input th:field="*{productName}" type="text" class="form-control" id="productName" name="productName" placeholder="Enter product name" required>
                     </div>
 
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea th:field="*{description}" class="form-control" id="description" name="description" placeholder="Enter description" rows="5" required></textarea>
+                    </div>
+
                     <!-- Price and Discount -->
                     <div class="row">
                         <div class="col-md-6 mb-3">

@@ -8,9 +8,9 @@
     <meta name="description" content="Chameleon Admin is a modern Bootstrap 4 webapp &amp; admin dashboard html template with a large number of components, elegant design, clean and organized code.">
     <meta name="keywords" content="admin template, Chameleon admin template, dashboard template, gradient admin template, responsive admin template, webapp, eCommerce dashboard, analytic dashboard">
     <meta name="author" content="ThemeSelect">
-    <title>Tables - Chameleon Admin - Modern Bootstrap 4 WebApp & Dashboard HTML Template + UI Kit</title>
-    <link rel="apple-touch-icon" href="/admin/theme-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="/admin/theme-assets/images/ico/favicon.ico">
+    <title>Agricultural Admin</title>
+    <link rel="apple-touch-icon" href="/admin/theme-assets/images/logo/img.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/admin/theme-assets/images/logo/img.png">
     <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
     <link href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css" rel="stylesheet">
     <!-- BEGIN VENDOR CSS-->
@@ -113,42 +113,158 @@
             gap: 12px;
             justify-content: space-between;
         }
+        /* Search Form Styles */
+        form {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            height: 36px;
+        }
 
+        form input[type="text"] {
+            height: 36px;
+            width: 200px;
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+            transition: border-color 0.3s;
+            font-size: 13px;
+        }
+
+        form button {
+            height: 36px;
+            padding: 6px 12px;
+            border: none;
+            background: linear-gradient(45deg, #6967CE, #7367F0);
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 13px;
+            font-weight: 500;  /* Match with New Product button */
+            text-transform: capitalize; /* Makes "Search" same case as "New Product" */
+        }
 
         /* New Product Button Styles */
-
         .btn-rect {
             display: inline-flex;
             align-items: center;
-            padding: 8px 16px;
-            border-radius: 5px;
-            font-size: 14px;
+            padding: 6px 12px;
+            height: 36px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
             text-align: center;
             text-decoration: none;
             color: #fff;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(105, 103, 206, 0.15);
+            background: linear-gradient(45deg, #6967CE, #7367F0);
+            border: none;
+            line-height: 1;
         }
 
-        .btn-rect .btn-icon {
-            margin-right: 8px;
+        .btn-rect i {
+            font-size: 13px;
+            margin-right: 6px;
         }
 
-        .btn-primary.btn-rect {
-            background-color: #007bff;
-            border-color: #007bff;
+        /* Rest of the styles remain the same */
+        .btn-rect:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(105, 103, 206, 0.25);
+            opacity: 0.95;
+            color: #fff;
         }
 
-        .btn-primary.btn-rect i {
-            font-size: 16px;
+        .btn-rect:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(105, 103, 206, 0.15);
         }
 
-        .btn-primary.btn-rect:hover {
-            opacity: 0.8;
+        /* Container Styles */
+        .table-wtf {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 1rem;
+            padding-right: 1.5rem;
         }
 
-        .pagination{
-            padding-right: 20px;
-            justify-content: right;
+        /* Container Styles */
+        .table-wtf {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 1rem;
+            padding-right: 1.5rem;
         }
+        /* Pagination Container Styles */
+        .card {
+            position: relative;
+            padding-bottom: 60px; /* Space for pagination */
+            min-height: 200px; /* Ensure enough space for content */
+        }
+
+        nav[aria-label="Page navigation example"] {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            margin: 0;
+            padding: 0;
+        }
+
+        .pagination .page-item {
+            margin: 0 2px;
+        }
+
+        .pagination .page-item .page-link {
+            padding: 6px 12px;
+            color: #6967CE;
+            border: 1px solid #dee2e6;
+            background-color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .pagination .page-item .page-link:hover {
+            background-color: #6967CE;
+            color: #fff;
+            border-color: #6967CE;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #6967CE;
+            border-color: #6967CE;
+            color: #fff;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: #6c757d;
+            pointer-events: none;
+            background-color: #fff;
+            border-color: #dee2e6;
+        }
+
+        /* Optional: Add responsive adjustments */
+        @media (max-width: 768px) {
+            nav[aria-label="Page navigation example"] {
+                position: static;
+                margin-top: 20px;
+            }
+
+            .pagination {
+                justify-content: center; /* Center align on mobile */
+            }
+        }
+
     </style>
 
     <!-- END Custom CSS-->
@@ -165,8 +281,8 @@
 <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true" data-img="/admin/theme-assets/images/backgrounds/02.jpg">
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
-            <li class="nav-item mr-auto"><a class="navbar-brand" href="index.html"><img class="brand-logo" alt="Chameleon admin logo" src="/admin/theme-assets/images/logo/logo.png"/>
-                <h3 class="brand-text">Chameleon</h3></a></li>
+            <li class="nav-item mr-auto"><a class="navbar-brand" th:href="@{/admin/dashboard}"><img class="brand-logo" alt="Chameleon admin logo" src="/admin/theme-assets/images/logo/img.png"/>
+                <h3 class="brand-text">Agricultural</h3></a></li>
             <li class="nav-item d-md-none"><a class="nav-link close-navbar"><i class="ft-x"></i></a></li>
         </ul>
     </div>
@@ -204,7 +320,7 @@
                 </ul>
             </li>
         </ul>
-    </div><a class="btn btn-danger btn-block btn-glow btn-upgrade-pro mx-1" href="https://themeselection.com/products/chameleon-admin-modern-bootstrap-webapp-dashboard-html-template-ui-kit/" target="_blank">Download PRO!</a>
+    </div>
     <div class="navigation-background"></div>
 </div>
 
@@ -212,21 +328,21 @@
     <div class="content-wrapper">
         <div class="content-wrapper-before"></div>
         <div class="content-header row">
-            <div class="content-header-left col-md-4 col-12 mb-2">
-                <h3 class="content-header-title">Tables</h3>
-            </div>
-            <div class="content-header-right col-md-8 col-12">
-                <div class="breadcrumbs-top float-md-right">
-                    <div class="breadcrumb-wrapper mr-1">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a>
-                            </li>
-                            <li class="breadcrumb-item active">Order
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="content-header-left col-md-4 col-12 mb-2">-->
+<!--                <h3 class="content-header-title">Tables</h3>-->
+<!--            </div>-->
+<!--            <div class="content-header-right col-md-8 col-12">-->
+<!--                <div class="breadcrumbs-top float-md-right">-->
+<!--                    <div class="breadcrumb-wrapper mr-1">-->
+<!--                        <ol class="breadcrumb">-->
+<!--                            <li class="breadcrumb-item"><a href="index.html">Home</a>-->
+<!--                            </li>-->
+<!--                            <li class="breadcrumb-item active">Order-->
+<!--                            </li>-->
+<!--                        </ol>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
         <div class="content-body">
             <!-- Basic Tables start -->
@@ -234,7 +350,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Order</h4>
+                            <h4 class="card-title">ORDER</h4>
                             <!--                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>-->
                             <div class="table-wtf mt-3">
                                 <!--                                <div class="search-container">-->
@@ -257,9 +373,6 @@
                                     <button type="submit" class="site-btn">SEARCH</button>
                                 </form>
 
-                                <a th:href="@{/admin/products}" class="btn btn-primary btn-rect">
-                                    <i class="fa fa-plus mr-1"></i> New Order
-                                </a>
                             </div>
 
                             <!--                            <a th:href="@{/admin/products}" class="btn btn-primary btn-icon" role="button">-->
@@ -311,7 +424,8 @@
                                             <td>[[${item.phone}]]</td>
                                             <td>[[${item.orderDate}]]</td>
                                             <td>[[${item.address}]]</td>
-                                            <td>[[${item.amount}]]</td>
+<!--                                            <td>[[${item.amount}]]</td>-->
+                                            <td th:text="${#numbers.formatDecimal(item.amount, 1, 'DEFAULT', 0, 'DEFAULT')}+' đ'">
 
                                             <td>
                                                 <a th:href="@{'/admin/order/detail/'+${item.orderId}}">
