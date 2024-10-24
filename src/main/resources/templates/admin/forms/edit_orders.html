@@ -8,9 +8,9 @@
     <meta name="description" content="Chameleon Admin is a modern Bootstrap 4 webapp &amp; admin dashboard html template with a large number of components, elegant design, clean and organized code.">
     <meta name="keywords" content="admin template, Chameleon admin template, dashboard template, gradient admin template, responsive admin template, webapp, eCommerce dashboard, analytic dashboard">
     <meta name="author" content="ThemeSelect">
-    <title>Tables - Chameleon Admin - Modern Bootstrap 4 WebApp & Dashboard HTML Template + UI Kit</title>
-    <link rel="apple-touch-icon" href="/admin/theme-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="/admin/theme-assets/images/ico/favicon.ico">
+    <title>Agricultural Admin</title>
+    <link rel="apple-touch-icon" href="/admin/theme-assets/images/logo/img.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/admin/theme-assets/images/logo/img.png">
     <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i%7CComfortaa:300,400,700" rel="stylesheet">
     <link href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css" rel="stylesheet">
     <!-- BEGIN VENDOR CSS-->
@@ -149,6 +149,39 @@
             padding-right: 20px;
             justify-content: right;
         }
+
+        /* Search Form Styles */
+        form {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            height: 36px;
+        }
+
+        form input[type="text"] {
+            height: 36px;
+            width: 200px;
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+            transition: border-color 0.3s;
+            font-size: 13px;
+        }
+
+        form button {
+            height: 36px;
+            padding: 6px 12px;
+            border: none;
+            background: linear-gradient(45deg, #6967CE, #7367F0);
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 13px;
+            font-weight: 500;  /* Match with New Product button */
+            text-transform: capitalize; /* Makes "Search" same case as "New Product" */
+        }
     </style>
 
     <!-- END Custom CSS-->
@@ -212,16 +245,16 @@
 <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true" data-img="/admin/theme-assets/images/backgrounds/02.jpg">
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
-            <li class="nav-item mr-auto"><a class="navbar-brand" href="index.html"><img class="brand-logo" alt="Chameleon admin logo" src="/admin/theme-assets/images/logo/logo.png"/>
-                <h3 class="brand-text">Chameleon</h3></a></li>
+            <li class="nav-item mr-auto"><a class="navbar-brand" th:href="@{/admin/dashboard}"><img class="brand-logo" alt="Chameleon admin logo" src="/admin/theme-assets/images/logo/img.png"/>
+                <h3 class="brand-text">Agricultural</h3></a></li>
             <li class="nav-item d-md-none"><a class="nav-link close-navbar"><i class="ft-x"></i></a></li>
         </ul>
     </div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class=" nav-item"><a href="index.html"><i class="ft-home"></i><span class="menu-title" data-i18n="">Dashboard</span></a>
+            <li class=" nav-item"><a th:href="@{/admin/dashboard}"><i class="ft-home"></i><span class="menu-title" data-i18n="">Dashboard</span></a>
             </li>
-            <li class=" nav-item"><a href="charts.html"><i class="ft-pie-chart"></i><span class="menu-title" data-i18n="">Charts</span></a>
+            <li class=" nav-item"><a th:href="@{/admin/charts}"><i class="ft-pie-chart"></i><span class="menu-title" data-i18n="">Charts</span></a>
             </li>
             <!--            <li class="active"><a href="/admin/category"><i class="ft-credit-card"></i><span class="menu-title" data-i18n="">Category</span></a>-->
             <!--            </li>-->
@@ -239,8 +272,19 @@
 
                 </ul>
             </li>
+            <li class="nav-item has-sub">
+                <a href="#"><i class="ft-layers"></i><span class="menu-title" data-i18n="">Statistic</span></a>
+                <ul class="menu-content">
+                    <li><a class="menu-item" th:href="@{/admin/reports}"><i class="ft-credit-card"></i> Statistic Products</a></li>
+                    <li><a class="menu-item" th:href="@{/admin/reportCategory}"><i class="ft-credit-card"></i> Statistic Category</a></li>
+                    <li><a class="menu-item" th:href="@{/admin/reportYear}"><i class="ft-credit-card"></i> Statistic Year</a></li>
+                    <li><a class="menu-item" th:href="@{/admin/reportMonth}"><i class="ft-credit-card"></i> Statistic Month</a></li>
+                    <li><a class="menu-item" th:href="@{/admin/reportQuarter}"><i class="ft-credit-card"></i> Statistic Quarter</a></li>
+                    <li><a class="menu-item" th:href="@{/admin/reportUser}"><i class="ft-credit-card"></i> Statistic User</a></li>
+                </ul>
+            </li>
         </ul>
-    </div><a class="btn btn-danger btn-block btn-glow btn-upgrade-pro mx-1" href="https://themeselection.com/products/chameleon-admin-modern-bootstrap-webapp-dashboard-html-template-ui-kit/" target="_blank">Download PRO!</a>
+    </div>
     <div class="navigation-background"></div>
 </div>
 
@@ -248,21 +292,21 @@
     <div class="content-wrapper">
         <div class="content-wrapper-before"></div>
         <div class="content-header row">
-            <div class="content-header-left col-md-4 col-12 mb-2">
-                <h3 class="content-header-title">Tables</h3>
-            </div>
-            <div class="content-header-right col-md-8 col-12">
-                <div class="breadcrumbs-top float-md-right">
-                    <div class="breadcrumb-wrapper mr-1">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a>
-                            </li>
-                            <li class="breadcrumb-item active">Order Details
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="content-header-left col-md-4 col-12 mb-2">-->
+<!--                <h3 class="content-header-title">Tables</h3>-->
+<!--            </div>-->
+<!--            <div class="content-header-right col-md-8 col-12">-->
+<!--                <div class="breadcrumbs-top float-md-right">-->
+<!--                    <div class="breadcrumb-wrapper mr-1">-->
+<!--                        <ol class="breadcrumb">-->
+<!--                            <li class="breadcrumb-item"><a href="index.html">Home</a>-->
+<!--                            </li>-->
+<!--                            <li class="breadcrumb-item active">Order Details-->
+<!--                            </li>-->
+<!--                        </ol>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
         <div class="content-body">
             <!-- Basic Tables start -->
@@ -293,9 +337,9 @@
                                     <button type="submit" class="site-btn">SEARCH</button>
                                 </form>
 
-                                <a th:href="@{/admin/products}" class="btn btn-primary btn-rect">
-                                    <i class="fa fa-plus"></i> New Product
-                                </a>
+<!--                                <a th:href="@{/admin/products}" class="btn btn-primary btn-rect">-->
+<!--                                    <i class="fa fa-plus"></i> New Product-->
+<!--                                </a>-->
                             </div>
 
                             <!--                            <a th:href="@{/admin/products}" class="btn btn-primary btn-icon" role="button">-->
@@ -335,12 +379,11 @@
                                             <th>Amount</th>
                                             <th>Price</th>
 
-                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody id="orderTableBody">
                                         <tr th:each="item, count : ${orderDetail}">
-                                            <td class="text-center" th:text="${count.index+1}"></td>
+                                            <th th:text="${count.index + 1}"></th>
                                             <td>
                                                 <img th:src="@{'/loadImage?imageName='+${item.product.productImage}}" width="80px" alt="product" />
                                             </td>
@@ -348,7 +391,6 @@
                                             <td>[[${item.quantity}]]</td>
                                             <td>[[${#numbers.formatDecimal(item.price - (item.price * item.product.discount/100), 1, 'DEFAULT', 0, 'DEFAULT')}+ ' đ']]</td>
                                             <td>[[${#numbers.formatDecimal((item.price - (item.price * item.product.discount/100)) * item.quantity, 1, 'DEFAULT', 0, 'DEFAULT')}+ ' đ']]</td>
-
                                         </tr>
                                         </tbody>
                                     </table>
