@@ -160,7 +160,24 @@
         margin-bottom: 15px;
     }
 
+    <style>
+    .btn-google {
+        background-color: #dd4b39;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px;
+        text-decoration: none;
+    }
 
+    .btn-google:hover {
+        background-color: #c23321;
+    }
+
+    .btn-google i {
+        margin-right: 8px;
+    }
 </style>
 
 <div class="login-container">
@@ -181,7 +198,14 @@
         </div>
         <button type="submit" class="btn btn-custom">Đăng nhập</button>
     </form>
+
+    <!-- Nút Đăng nhập bằng Google -->
+    <hr>
+    <a th:href="@{/oauth2/authorization/google}" class="btn btn-custom btn-google">
+        <i class="fa fa-google"></i> Đăng nhập bằng Google
+    </a>
 </div>
+
 
 <!-- Footer Section Begin -->
 <footer th:replace="~{/web/fragments/footer :: footer}"></footer>

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-public class DashboardController {
+public class DashboardController extends CommonAdminController{
     @Autowired
     UserRepository userRepository;
     @GetMapping("/dashboard")

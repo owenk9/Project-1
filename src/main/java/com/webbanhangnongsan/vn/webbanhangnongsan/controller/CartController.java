@@ -21,6 +21,7 @@ import org.thymeleaf.util.StringUtils;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class CartController extends CommonController{
@@ -144,10 +145,16 @@ public class CartController extends CommonController{
         model.addAttribute("NoOfItems", shoppingCartService.getCount());
         double totalPrice = 0;
         for (CartItem cartItem : cartItems) {
-            double price = cartItem.getTotalPrice();
-            totalPrice += price;
+            double price = cartItem.getQuantity() * cartItem.getProduct().getPrice();
+            totalPrice += price - (price * cartItem.getProduct().getDiscount() / 100);
         }
 
+        double subtotal = 0;
+        for (CartItem cartItem : cartItems) {
+            double price = cartItem.getTotalPrice();
+            subtotal += price;
+        }
+        model.addAttribute("subTotal", subtotal);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("totalCartItems", shoppingCartService.getCount());
         commomDataService.commonData(model, user);
@@ -204,12 +211,18 @@ public class CartController extends CommonController{
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("total", shoppingCartService.getAmount());
         model.addAttribute("NoOfItems", shoppingCartService.getCount());
-        double totalPrice = 0;
+        double subtotal = 0;
         for (CartItem cartItem : cartItems) {
             double price = cartItem.getTotalPrice();
-            totalPrice += price;
+            subtotal += price;
         }
 
+        double totalPrice = 0;
+        for (CartItem cartItem : cartItems) {
+            double price = cartItem.getQuantity() * cartItem.getProduct().getPrice();
+            totalPrice += price - (price * cartItem.getProduct().getDiscount() / 100);
+        }
+        model.addAttribute("subTotal", subtotal);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("totalCartItems", shoppingCartService.getCount());
         commomDataService.commonData(model, user);
@@ -331,5 +344,7 @@ public class CartController extends CommonController{
         }
         else return "web/orderfail";
     }
+
+
 
 }

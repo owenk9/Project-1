@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -75,10 +76,10 @@ public class ShopController extends CommonController {
 
     @GetMapping("filteredProducts")
     public String filteredProducts(@RequestParam("minamount") String minAmount,
-                                @RequestParam("maxamount") String maxAmount,
-                                @RequestParam("categoryId") long categoryId,
-                                @RequestParam("page") int page,
-                                Model model) {
+                                   @RequestParam("maxamount") String maxAmount,
+                                   @RequestParam("categoryId") long categoryId,
+                                   @RequestParam("page") int page,
+                                   Model model) {
         List<Category> categories = categoryRepository.findAll();
         List<Product> productList = productService.listProductFiltered(categoryId, Integer.parseInt(minAmount), Integer.parseInt(maxAmount),page);
         int numPages = productService.numPage(categoryId, Integer.parseInt(minAmount), Integer.parseInt(maxAmount));
@@ -103,7 +104,7 @@ public class ShopController extends CommonController {
     @GetMapping("searchProducts")
     public String searchProducts(@RequestParam("search") String search,
                                  @RequestParam("page") int page,
-                                Model model) {
+                                 Model model) {
         List<Product> productList = productService.listProductSearch(search,page);
         int numPages = productService.numPageSearch(search);
         System.out.println("numPages: " + numPages);
@@ -121,7 +122,10 @@ public class ShopController extends CommonController {
         return "redirect:/searchProducts"; // Chuyển hướng đến phương thức GET searchProducts
     }
 
-
+    @ModelAttribute(value = "saleOffProducts")
+    public List<Product> saleOffProducts(){
+        return productRepository.listSaleOffProducts();
+    }
 
 }
 

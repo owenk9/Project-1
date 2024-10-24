@@ -1,5 +1,6 @@
 package com.webbanhangnongsan.vn.webbanhangnongsan.controller.admin;
 
+import com.webbanhangnongsan.vn.webbanhangnongsan.dto.OrderExcelExporter;
 import com.webbanhangnongsan.vn.webbanhangnongsan.entity.*;
 import com.webbanhangnongsan.vn.webbanhangnongsan.repository.OrderDetailRepository;
 import com.webbanhangnongsan.vn.webbanhangnongsan.repository.OrderRepository;
@@ -7,6 +8,7 @@ import com.webbanhangnongsan.vn.webbanhangnongsan.repository.ProductRepository;
 import com.webbanhangnongsan.vn.webbanhangnongsan.repository.UserRepository;
 import com.webbanhangnongsan.vn.webbanhangnongsan.service.SendMailService;
 import com.webbanhangnongsan.vn.webbanhangnongsan.service.admin.OrderAdminService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -140,4 +143,18 @@ public class OrderController extends CommonAdminController{
         return "admin/orders";
     }
 
+    @GetMapping("/orders/export")
+    public void exportOrdersToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=orders.xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        // Lấy danh sách đơn hàng
+        List<Order> orders = orderRepository.findAll();
+
+        // Sử dụng OrderExcelExporter để tạo file Excel
+        OrderExcelExporter excelExporter = new OrderExcelExporter(orders);
+        excelExporter.export(response);
+    }
 }

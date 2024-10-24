@@ -8,12 +8,18 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 @Configuration
+@EnableWebSecurity
 public class WebSecurityConfig {
+
+    @Autowired
+    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
     @Autowired
     private UserDetailService userDetailService;
@@ -38,18 +44,18 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable()); // Disable CSRF
+        http.csrf(csrf -> csrf.disable());
 
         http.authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/checkout").hasRole("USER")
+                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")  // Sử dụng hasAuthority thay vì hasRole
+                        .requestMatchers("/checkout").hasAuthority("ROLE_USER")   // Sử dụng hasAuthority thay vì hasRole
                         .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginProcessingUrl("/doLogin")
                         .loginPage("/login")
-                        .successHandler(new SuccessHandler())  // Áp dụng SuccessHandler
+                        .successHandler(new SuccessHandler()) // Sử dụng SuccessHandler cho đăng nhập thường
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
@@ -60,6 +66,11 @@ public class WebSecurityConfig {
                         .logoutSuccessUrl("/?logout_success")
                         .permitAll()
                 )
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
+                        .successHandler(oAuth2LoginSuccessHandler)  // Sử dụng OAuth2LoginSuccessHandler
+                        .failureUrl("/login?error=true")
+                )
                 .rememberMe(rememberMe -> rememberMe
                         .rememberMeParameter("remember")
                 );
@@ -67,4 +78,3 @@ public class WebSecurityConfig {
         return http.build();
     }
 }
-

@@ -172,7 +172,7 @@ public class CategoryController extends CommonAdminController{
     public String handleSearch(@RequestParam("search") String search, RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("search", search);
         redirectAttributes.addAttribute("currentPage", 1); // Đặt trang mặc định là 1
-        return "redirect:/admin1/paginationCategories"; // Chuyển hướng đến phương thức GET searchProducts
+        return "redirect:/admin/paginationCategories"; // Chuyển hướng đến phương thức GET searchProducts
     }
 
     @GetMapping("/paginationCategories")

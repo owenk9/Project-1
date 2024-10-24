@@ -1,5 +1,7 @@
 package com.webbanhangnongsan.vn.webbanhangnongsan.config;
 
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Mac;
@@ -12,11 +14,33 @@ import java.util.*;
 
 @Component
 public class VNPayConfig {
+
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     public static String vnp_Returnurl = "/vnpay-payment";
-    public static String vnp_TmnCode = "";
-    public static String vnp_HashSecret = "";
+    public static String vnp_TmnCode;
+    public static String vnp_HashSecret;
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
+
+    @Value("${VNPAY_TMM_CODE}")
+    private String tmnCode;
+
+    @Value("${VNPAY_HASH_SECRET}")
+    private String hashSecret;
+
+    @PostConstruct
+    public void init() {
+        vnp_TmnCode = this.tmnCode;
+        vnp_HashSecret = this.hashSecret;
+    }
+
+    // Getters
+    public static String getVnpTmnCode() {
+        return vnp_TmnCode;
+    }
+
+    public static String getVnpHashSecret() {
+        return vnp_HashSecret;
+    }
 
     public static String md5(String message) {
         String digest = null;

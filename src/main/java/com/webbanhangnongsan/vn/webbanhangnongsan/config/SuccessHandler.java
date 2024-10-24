@@ -32,7 +32,7 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
         if (hasRoleUser) {
             redirectStrategy.sendRedirect(request, response, "/checkout");
         } else if (hasAdmin) {
-            redirectStrategy.sendRedirect(request, response, "/admin/tables");
+            redirectStrategy.sendRedirect(request, response, "/admin/dashboard");
         } else {
             throw new IllegalStateException();
         }

@@ -29,4 +29,10 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 
     @Query(value = "SELECT count(*) FROM products WHERE product_name LIKE CONCAT('%', :productName, '%')", nativeQuery = true)
     public int existsProductByProductName(String productName);
+
+    @Query(value = "SELECT * FROM products where discount > 0", nativeQuery = true)
+    public List<Product> listSaleOffProducts();
+
+    @Query(value = "SELECT * FROM products WHERE category_id = :categoryId AND product_id != :productId LIMIT 4", nativeQuery = true)
+    public List<Product> list4ProductByCategoryIdExcludingProduct(@Param("categoryId") long categoryId, @Param("productId") long productId);
 }

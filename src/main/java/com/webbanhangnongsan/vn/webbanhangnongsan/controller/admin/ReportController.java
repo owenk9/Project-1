@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
-public class ReportController {
+public class ReportController extends CommonAdminController{
 
     @Autowired
     UserRepository userRepository;
@@ -126,7 +126,7 @@ public class ReportController {
     public String handleSearchRepo(@RequestParam("search") String search, RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("search", search);
         redirectAttributes.addAttribute("currentPage", 1); // Đặt trang mặc định là 1
-        return "redirect:/admin1/paginationRepo"; // Chuyển hướng đến phương thức GET searchProducts
+        return "redirect:/admin/paginationRepo"; // Chuyển hướng đến phương thức GET searchProducts
     }
 
     @GetMapping("/paginationRepo")
@@ -152,7 +152,7 @@ public class ReportController {
     public String handleSearchCategoryRepo(@RequestParam("search") String search, RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("search", search);
         redirectAttributes.addAttribute("currentPage", 1); // Đặt trang mặc định là 1
-        return "redirect:/admin1/paginationCategoryRepo"; // Chuyển hướng đến phương thức GET searchProducts
+        return "redirect:/admin/paginationCategoryRepo"; // Chuyển hướng đến phương thức GET searchProducts
     }
 
     @GetMapping("/paginationCategoryRepo")
@@ -178,7 +178,7 @@ public class ReportController {
     public String handleSearchYearRepo(@RequestParam("search") String search, RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("search", search);
         redirectAttributes.addAttribute("currentPage", 1); // Đặt trang mặc định là 1
-        return "redirect:/admin1/paginationYearRepo"; // Chuyển hướng đến phương thức GET searchProducts
+        return "redirect:/admin/paginationYearRepo"; // Chuyển hướng đến phương thức GET searchProducts
     }
 
     @GetMapping("/paginationYearRepo")
@@ -204,7 +204,7 @@ public class ReportController {
     public String handleSearchQuarterRepo(@RequestParam("search") String search, RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("search", search);
         redirectAttributes.addAttribute("currentPage", 1); // Đặt trang mặc định là 1
-        return "redirect:/admin1/paginationQuarterRepo"; // Chuyển hướng đến phương thức GET searchProducts
+        return "redirect:/admin/paginationQuarterRepo"; // Chuyển hướng đến phương thức GET searchProducts
     }
 
     @GetMapping("/paginationQuarterRepo")
@@ -230,7 +230,7 @@ public class ReportController {
     public String handleSearchMonthRepo(@RequestParam("search") String search, RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("search", search);
         redirectAttributes.addAttribute("currentPage", 1); // Đặt trang mặc định là 1
-        return "redirect:/admin1/paginationMonthRepo"; // Chuyển hướng đến phương thức GET searchProducts
+        return "redirect:/admin/paginationMonthRepo"; // Chuyển hướng đến phương thức GET searchProducts
     }
 
     @GetMapping("/paginationMonthRepo")
@@ -256,7 +256,7 @@ public class ReportController {
     public String handleSearchUserRepo(@RequestParam("search") String search, RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("search", search);
         redirectAttributes.addAttribute("currentPage", 1); // Đặt trang mặc định là 1
-        return "redirect:/admin1/paginationUserRepo"; // Chuyển hướng đến phương thức GET searchProducts
+        return "redirect:/admin/paginationUserRepo"; // Chuyển hướng đến phương thức GET searchProducts
     }
 
     @GetMapping("/paginationUserRepo")

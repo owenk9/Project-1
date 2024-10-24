@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collection;
+import java.util.List;
 
 @Controller
 public class ProductDetailController extends CommonController{
@@ -36,7 +37,9 @@ public class ProductDetailController extends CommonController{
     @GetMapping(value = "productDetail")
     public String productDetail(@RequestParam("id") long id, Model model, User user) {
         Product product = productRepository.findById(id).orElse(null);
+        List<Product> relatedProductList = productRepository.list4ProductByCategoryIdExcludingProduct(product.getCategory().getCategoryId(),product.getProductId());
         model.addAttribute("product", product);
+        model.addAttribute("relatedProductList", relatedProductList);
 
         CartItem cartItem = CartItem.builder()
                 .id(product.getProductId())  // Đảm bảo rằng `product.getProductId()` không phải là null

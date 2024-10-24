@@ -66,6 +66,7 @@ public class CommonController {
         if (user != null && user.getName() != null) {
             model.addAttribute("isLoggedIn", true);
             model.addAttribute("username", user.getName());
+            model.addAttribute("role", user.getRoles());
         } else {
             model.addAttribute("isLoggedIn", false);
         }
