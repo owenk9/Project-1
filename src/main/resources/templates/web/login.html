@@ -185,12 +185,7 @@
     <form th:action="@{/doLogin}" method="POST" class="user-form">
         <div class="mb-3">
             <label for="username" class="form-label">Tên đăng nhập</label>
-            <input
-                    type="email"
-                    class="form-control"
-                    id="username"
-                    name="username"
-                    placeholder="Nhập tên đăng nhập" required>
+            <input type="email" class="form-control" id="username" name="username" placeholder="Nhập tên đăng nhập" required>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Mật khẩu</label>
@@ -204,6 +199,10 @@
     <a th:href="@{/oauth2/authorization/google}" class="btn btn-custom btn-google">
         <i class="fa fa-google"></i> Đăng nhập bằng Google
     </a>
+
+    <!-- Nút Đăng ký -->
+    <hr>
+    <p>Chưa có tài khoản? <a th:href="@{/register}" class="btn btn-secondary">Đăng ký</a></p>
 </div>
 
 
