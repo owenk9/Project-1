@@ -45,7 +45,7 @@ public class RegisterController {
     @GetMapping("/register")
     public ModelAndView registerForm(ModelMap model) {
         model.addAttribute("user", new User());
-        return new ModelAndView("web/register-test", model);
+        return new ModelAndView("web/register", model);
     }
 
     @PostMapping("/register")
