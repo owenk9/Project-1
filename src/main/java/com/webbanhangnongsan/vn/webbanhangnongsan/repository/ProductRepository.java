@@ -2,9 +2,11 @@ package com.webbanhangnongsan.vn.webbanhangnongsan.repository;
 
 import com.webbanhangnongsan.vn.webbanhangnongsan.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,4 +37,5 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 
     @Query(value = "SELECT * FROM products WHERE category_id = :categoryId AND product_id != :productId LIMIT 4", nativeQuery = true)
     public List<Product> list4ProductByCategoryIdExcludingProduct(@Param("categoryId") long categoryId, @Param("productId") long productId);
+
 }

@@ -49,8 +49,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         http.csrf(csrf -> csrf.disable());
 
         http.authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")  // Sử dụng hasAuthority thay vì hasRole
-                        .requestMatchers("/checkout").hasAuthority("ROLE_USER")   // Sử dụng hasAuthority thay vì hasRole
+                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/checkout").hasAuthority("ROLE_USER")
                         .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
                 )

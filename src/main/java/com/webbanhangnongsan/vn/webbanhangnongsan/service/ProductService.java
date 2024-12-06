@@ -42,7 +42,7 @@ public class ProductService {
         }
 
         // Xác định kích thước trang (số sản phẩm trên mỗi trang)
-        int pageSize = 1; // Bạn có thể thay đổi giá trị này theo nhu cầu của mình
+        int pageSize = 9;
         int skip = (page - 1) * pageSize;
 
         // Phân trang danh sách sản phẩm
@@ -81,7 +81,7 @@ public class ProductService {
                     .filter(product -> product.getPrice() <= maxAmount)
                     .toList();
         }
-        int pageSize = 1;
+        int pageSize = 9;
         int totalProducts = productList.size();
         return (totalProducts + pageSize - 1) / pageSize;  // Phép chia lấy trần
     }
@@ -112,7 +112,7 @@ public class ProductService {
                     .filter(product -> product.getPrice() <= maxAmount)
                     .toList();
         }
-        int pageSize = 1;
+        int pageSize = 9;
         int totalProducts = productList.size();
         return totalProducts;
     }
@@ -126,7 +126,7 @@ public class ProductService {
                 .filter(product -> product.getProductName().toLowerCase().contains(string.toLowerCase()))
                 .toList();
         // Xác định kích thước trang (số sản phẩm trên mỗi trang)
-        int pageSize = 1; // Bạn có thể thay đổi giá trị này theo nhu cầu của mình
+        int pageSize = 9;
         int skip = (page - 1) * pageSize;
 
         // Phân trang danh sách sản phẩm đã lọc
@@ -147,10 +147,14 @@ public class ProductService {
         if(filteredList.size() == 0){
             return 0;
         }
-        int pageSize = 1;
+        int pageSize = 9;
         int totalProducts = filteredList.size();
 
         return (totalProducts + pageSize - 1) / pageSize;  // Phép chia lấy trần
+    }
+
+    public void deleteProduct(long id){
+        productRepository.deleteById(id);
     }
 
 }

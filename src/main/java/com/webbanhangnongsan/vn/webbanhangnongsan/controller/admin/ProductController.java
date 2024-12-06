@@ -14,6 +14,8 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -120,6 +122,7 @@ public class ProductController extends CommonAdminController{
     //     Hiển thị form chỉnh sửa sản phẩm
     @GetMapping("/editProducts/{id}")
     public String editProductForm(@PathVariable("id") Long id, Model model) {
+        System.out.println(model.getAttribute("user"));
         Product product = productRepository.findById(id).orElse(null);
         if (product == null) {
             return "redirect:/admin/tables";
@@ -167,11 +170,30 @@ public class ProductController extends CommonAdminController{
     }
     // delete product
     @GetMapping("/deleteProducts/{id}")
-    public String delProduct(@PathVariable("id") Long id, Model model) {
-        productRepository.deleteById(id);
-        model.addAttribute("message", "Xóa sản phẩm thành công!");
+    public String deleteProductForm(@PathVariable("id") Long id, Model model) {
+        Product product = productRepository.findById(id).orElse(null);
+        if (product == null) {
+            model.addAttribute("error", "Sản phẩm không tồn tại!");
+            return "redirect:/admin/tables";
+        }
+        model.addAttribute("deleteProduct", product);
+        return "admin/forms/confirm_delete";
+    }
+
+
+    @PostMapping("/deleteProducts")
+    public String deleteProduct(@ModelAttribute("deleteProduct") Product product, Model model) {
+        try {
+            productRepository.deleteById(product.getProductId());
+            model.addAttribute("message", "Xóa sản phẩm thành công!");
+        } catch (Exception e) {
+            model.addAttribute("error", "Không thể xóa sản phẩm: " + e.getMessage());
+        }
         return "redirect:/admin/tables";
     }
+
+
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
@@ -209,5 +231,17 @@ public class ProductController extends CommonAdminController{
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalPages", totalPage);
         return "admin/tables";
+    }
+
+    @GetMapping("/test")
+    public String testDelete(@RequestParam("id") Long id, Model model) {
+        try {
+            System.out.println(model.getAttribute("user"));
+            productService.deleteProduct(id); // Gọi service để xóa sản phẩm
+            model.addAttribute("message", "Product deleted successfully!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return "redirect:/admin/tables";
     }
 }

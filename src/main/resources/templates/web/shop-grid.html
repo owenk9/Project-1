@@ -250,12 +250,12 @@
                         <h4>Department</h4>
                         <ul>
                             <li>
-                                <a th:href="@{/filteredProducts(minamount=0, maxamount=540, categoryId=0,page=1)}">
+                                <a th:href="@{/filteredProducts(minamount=0, maxamount=100000, categoryId=0,page=1)}">
                                     All
                                 </a>
                             </li>
                             <li th:each="categoryItem : ${categories}">
-                                <a th:href="@{/filteredProducts(minamount=0, maxamount=540, categoryId=${categoryItem.categoryId},page=1)}">
+                                <a th:href="@{/filteredProducts(minamount=0, maxamount=100000, categoryId=${categoryItem.categoryId},page=1)}">
                                     [[${categoryItem.categoryName}]]
                                 </a>
                             </li>

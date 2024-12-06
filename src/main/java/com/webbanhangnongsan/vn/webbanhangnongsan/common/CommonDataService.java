@@ -39,7 +39,7 @@ public class CommonDataService {
     TemplateEngine templateEngine;
 
     public void commonData(Model model, User user){
-        listCategoryByProductName(model);
+//        listCategoryByProductName(model);
         Integer totalSave = 0;
         // get count yêu thích
         if (user != null) {
@@ -56,10 +56,10 @@ public class CommonDataService {
         model.addAttribute("cartItems", cartItems);
     }
 
-    public void listCategoryByProductName(Model model){
-        List<Object[]> countProductByCategory = productRepository.listCategoryByProductName();
-        model.addAttribute("countProductByCategory", countProductByCategory);
-    }
+//    public void listCategoryByProductName(Model model){
+//        List<Object[]> countProductByCategory = productRepository.listCategoryByProductName();
+//        model.addAttribute("countProductByCategory", countProductByCategory);
+//    }
 
     public void sendSimpleEmail(String email, String subject, String contentEmail, Collection<CartItem> cartItems,
                                 double totalPrice, Order orderFinal) throws MessagingException {
