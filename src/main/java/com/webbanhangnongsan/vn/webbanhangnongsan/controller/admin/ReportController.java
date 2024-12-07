@@ -141,6 +141,7 @@ public class ReportController extends CommonAdminController{
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalPages", totalPage);
         model.addAttribute("pageSize", pageSize);
+        model.addAttribute("tableTitle", "Sản phẩm");
         model.addAttribute("link", "paginationRepo");
         model.addAttribute("title", "Product report");
 
@@ -167,6 +168,7 @@ public class ReportController extends CommonAdminController{
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalPages", totalPage);
         model.addAttribute("pageSize", pageSize);
+        model.addAttribute("tableTitle", "Thể loại");
         model.addAttribute("link", "paginationCategoryRepo");
         model.addAttribute("title", "Category report");
 
@@ -194,6 +196,7 @@ public class ReportController extends CommonAdminController{
         model.addAttribute("totalPages", totalPage);
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("title", "Year report");
+        model.addAttribute("tableTitle", "Năm");
         model.addAttribute("link", "paginationYearRepo");
 
         return "admin/statistical";
@@ -219,6 +222,7 @@ public class ReportController extends CommonAdminController{
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalPages", totalPage);
         model.addAttribute("pageSize", pageSize);
+        model.addAttribute("tableTitle", "Qúy");
         model.addAttribute("title", "Quarter report");
         model.addAttribute("link", "paginationQuarterRepo");
 
@@ -245,6 +249,7 @@ public class ReportController extends CommonAdminController{
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalPages", totalPage);
         model.addAttribute("pageSize", pageSize);
+        model.addAttribute("tableTitle", "Tháng");
         model.addAttribute("title", "Month report");
         model.addAttribute("link", "paginationMonthRepo");
 
@@ -271,6 +276,7 @@ public class ReportController extends CommonAdminController{
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalPages", totalPage);
         model.addAttribute("pageSize", pageSize);
+        model.addAttribute("tableTitle", "Khách hàng");
         model.addAttribute("title", "User report");
         model.addAttribute("link", "paginationUserRepo");
 

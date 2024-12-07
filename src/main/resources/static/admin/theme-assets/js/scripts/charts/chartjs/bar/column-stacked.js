@@ -1,93 +1,126 @@
-/*=========================================================================================
-    File Name: column-stacked.js
-    Description: Chartjs column stacked chart
-    ----------------------------------------------------------------------------------------
-    Item Name: Chameleon Admin - Modern Bootstrap 4 WebApp & Dashboard HTML Template + UI Kit
-    Version: 1.0
-    Author: ThemeSelection
-    Author URL: https://themeselection.com/
-==========================================================================================*/
-
-// Column stacked chart
-// ------------------------------
 $(window).on("load", function(){
+    // Gọi API để lấy dữ liệu
+    $.ajax({
+        url: '/admin/bar/quarterData', // URL API
+        method: 'GET',
+        success: function (response) {
+            // Kiểm tra dữ liệu trả về
+            if (!response || !Array.isArray(response) || response.length === 0) {
+                console.error('Dữ liệu API không hợp lệ:', response);
+                return;
+            }
 
-    // Get the context of the Chart canvas element we want to select
-    var ctx = $("#column-stacked");
+            // Chuẩn bị dữ liệu cho biểu đồ
+            let labels = [];
+            let datasets = [
+                {
+                    label: "Số lượng",
+                    data: [],
+                    backgroundColor: "#1E9FF2",
+                    hoverBackgroundColor: "rgba(30,159,242,.9)",
+                    borderColor: "transparent"
+                },
+                {
+                    label: "Tổng tiền",
+                    data: [],
+                    backgroundColor: "#FF4961",
+                    hoverBackgroundColor: "rgba(255,73,97,.9)",
+                    borderColor: "transparent"
+                }
+            ];
 
-    // Chart Options
-    var chartOptions = {
-        title:{
-            display:false,
-            text:"Chart.js Column Chart - Stacked"
-        },
-        tooltips: {
-            mode: 'label'
-        },
-        responsive: true,
-        maintainAspectRatio: false,
-        responsiveAnimationDuration:500,
-        scales: {
-            xAxes: [{
-                stacked: true,
-                display: true,
-                gridLines: {
-                    color: "#f3f3f3",
-                    drawTicks: false,
-                },
-                scaleLabel: {
-                    display: true,
+            // Duyệt qua dữ liệu API để lấy thông tin
+            response.forEach(item => {
+                // Kiểm tra tính hợp lệ của từng mục
+                if (Array.isArray(item) && item.length >= 3) {
+                    labels.push(item[0]); // Tên danh mục
+                    datasets[0].data.push(item[1]); // Số lượng
+                    datasets[1].data.push(item[2]); // Tổng tiền
+                } else {
+                    console.warn('Mục dữ liệu không hợp lệ:', item);
                 }
-            }],
-            yAxes: [{
-                stacked: true,
-                display: true,
-                gridLines: {
-                    color: "#f3f3f3",
-                    drawTicks: false,
-                },
-                scaleLabel: {
+            });
+
+            // Kiểm tra xem có dữ liệu để vẽ không
+            if (labels.length === 0) {
+                console.error('Không có dữ liệu để vẽ biểu đồ');
+                return;
+            }
+
+            // Chart Options
+            var chartOptions = {
+                title:{
                     display: true,
+                    text: "Thống Kê Bán Hàng Theo Qúy"
+                },
+                tooltips: {
+                    mode: 'label',
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
+                            var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                            return `${datasetLabel}: ${value.toLocaleString()}`;
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                responsiveAnimationDuration: 500,
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        display: true,
+                        gridLines: {
+                            color: "#f3f3f3",
+                            drawTicks: false,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Qúy'
+                        }
+                    }],
+                    yAxes: [{
+                        stacked: true,
+                        display: true,
+                        gridLines: {
+                            color: "#f3f3f3",
+                            drawTicks: false,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Giá Trị'
+                        },
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
                 }
-            }]
+            };
+
+            // Chart Data
+            var chartData = {
+                labels: labels,
+                datasets: datasets
+            };
+
+            var config = {
+                type: 'bar',
+                options: chartOptions,
+                data: chartData
+            };
+
+            // Get the context of the Chart canvas element we want to select
+            var ctx = $("#column-stacked");
+
+            // Create the chart
+            var stackedChart = new Chart(ctx, config);
+        },
+        error: function (xhr, status, error) {
+            console.error('Chi tiết lỗi API:', {
+                status: xhr.status,
+                responseText: xhr.responseText,
+                error: error
+            });
         }
-    };
-
-    // Chart Data
-    var chartData = {
-        labels: ["January", "February", "March", "April", "May"],
-        datasets: [{
-            label: "2016",
-            data: [65, 59, 80, 81, 56],
-            backgroundColor: "#1E9FF2",
-            hoverBackgroundColor: "rgba(30,159,242,.9)",
-            borderColor: "transparent"
-        }, {
-            label: "2017",
-            data: [28, 48, 40, 19, 86],
-            backgroundColor: "#FF4961",
-            hoverBackgroundColor: "rgba(255,73,97,.9)",
-            borderColor: "transparent"
-        },
-        {
-            label: "2018",
-            data: [80, 25, 16, 36, 67],
-            backgroundColor: "#28D094",
-            hoverBackgroundColor: "rgba(40,208,148,.9)",
-            borderColor: "transparent"
-        }]
-    };
-
-    var config = {
-        type: 'bar',
-
-        // Chart Options
-        options : chartOptions,
-
-        data : chartData
-    };
-
-    // Create the chart
-    var lineChart = new Chart(ctx, config);
-
+    });
 });

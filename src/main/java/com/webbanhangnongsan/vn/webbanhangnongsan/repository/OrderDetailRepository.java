@@ -51,7 +51,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,Integer
     public List<Object[]> repoWhereYear();
 
     // Statistics of products sold by month
-    @Query(value = "Select month(od.order_date) ,\r\n"
+    @Query(value = "Select month(od.order_date) as month ,\r\n"
             + "SUM(o.quantity) as quantity ,\r\n"
             + "SUM(o.quantity * o.price) as sum,\r\n"
             + "AVG(o.price) as avg,\r\n"

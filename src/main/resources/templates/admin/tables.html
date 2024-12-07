@@ -432,7 +432,8 @@
                                             <td>[[${item.quantity == 0 ? 'hết hàng' : item.quantity}]]</td>
 <!--                                            <td>[[${item.discount}]]</td>-->
                                             <td>[[${#numbers.formatDecimal(item?.discount, 1, 'DEFAULT', 0, 'DEFAULT')}+' %']]</td>
-                                            <td>[[${item.enteredDate}]]</td>
+                                            Nguyễn Hưng
+                                            <td th:text="${item?.enteredDate != null ? item.enteredDate.format(T(java.time.format.DateTimeFormatter).ofPattern('dd/MM/yyyy HH:mm')) : ''}">
                                             <td>
                                                 <a th:href="@{/admin/editProducts/{productId}(productId=${item.productId})}" class="btn btn-success btn-icon">
                                                     <i class="fa fa-edit"></i>

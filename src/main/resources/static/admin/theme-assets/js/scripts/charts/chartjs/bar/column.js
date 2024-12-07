@@ -1,92 +1,74 @@
-/*=========================================================================================
-    File Name: column.js
-    Description: Chartjs column chart
-    ----------------------------------------------------------------------------------------
-    Item Name: Chameleon Admin - Modern Bootstrap 4 WebApp & Dashboard HTML Template + UI Kit
-    Version: 1.0
-    Author: ThemeSelection
-    Author URL: https://themeselection.com/
-==========================================================================================*/
+$(window).on("load", function () {
+    // Gọi API để lấy dữ liệu
+    $.ajax({
+        url: '/admin/bar/monthData', // URL API
+        method: 'GET',
+        success: function (response) {
+            // Chuẩn bị dữ liệu cho biểu đồ
+            let labels = [];
+            let data = [];
 
-// Column chart
-// ------------------------------
-$(window).on("load", function(){
+            // Duyệt qua dữ liệu API để lấy thông tin
+            response.forEach(item => {
+                labels.push(`Tháng ${item[0]}`); // item[0]: Tên tháng
+                data.push(item[1]); // item[1]: Số lượng
+            });
 
-    //Get the context of the Chart canvas element we want to select
-    var ctx = $("#column-chart");
+            // Cấu hình biểu đồ
+            var ctx = $("#column-chart");
 
-    // Chart Options
-    var chartOptions = {
-        // Elements options apply to all of the options unless overridden in a dataset
-        // In this case, we are setting the border of each bar to be 2px wide and green
-        elements: {
-            rectangle: {
-                borderWidth: 2,
-                borderColor: 'rgb(0, 255, 0)',
-                borderSkipped: 'bottom'
-            }
-        },
-        responsive: true,
-        maintainAspectRatio: false,
-        responsiveAnimationDuration:500,
-        legend: {
-            position: 'top',
-        },
-        scales: {
-            xAxes: [{
-                display: true,
-                gridLines: {
-                    color: "#f3f3f3",
-                    drawTicks: false,
+            // Chart Options
+            var chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            color: "#f3f3f3",
+                            drawTicks: false,
+                        },
+                    }],
+                    yAxes: [{
+                        display: true,
+                        gridLines: {
+                            color: "#f3f3f3",
+                            drawTicks: false,
+                        },
+                        ticks: {
+                            beginAtZero: true // Bắt đầu từ 0
+                        }
+                    }]
                 },
-                scaleLabel: {
+                title: {
                     display: true,
+                    text: 'Số lượng bán hàng theo tháng'
                 }
-            }],
-            yAxes: [{
-                display: true,
-                gridLines: {
-                    color: "#f3f3f3",
-                    drawTicks: false,
-                },
-                scaleLabel: {
-                    display: true,
-                }
-            }]
+            };
+
+            // Chart Data
+            var chartData = {
+                labels: labels,
+                datasets: [{
+                    label: "Số lượng bán",
+                    data: data,
+                    backgroundColor: "#28D094",
+                    hoverBackgroundColor: "rgba(40,208,148,.9)",
+                    borderColor: "transparent"
+                }]
+            };
+
+            // Cấu hình và vẽ biểu đồ
+            var config = {
+                type: 'bar',
+                options: chartOptions,
+                data: chartData
+            };
+
+            var lineChart = new Chart(ctx, config);
         },
-        title: {
-            display: true,
-            text: 'Chart.js Bar Chart'
+        error: function (error) {
+            console.error('Lỗi khi lấy dữ liệu từ API:', error);
         }
-    };
-
-    // Chart Data
-    var chartData = {
-        labels: ["January", "February", "March", "April", "May", "June"],
-        datasets: [{
-            label: "2017",
-            data: [65, 85, 40, 81, 56, 75],
-            backgroundColor: "#28D094",
-            hoverBackgroundColor: "rgba(40,208,148,.9)",
-            borderColor: "transparent"
-        }, {
-            label: "2018",
-            data: [45, 65, 65, 19, 86, 35],
-            backgroundColor: "#FF4961",
-            hoverBackgroundColor: "rgba(255,73,97,.9)",
-            borderColor: "transparent"
-        }]
-    };
-
-    var config = {
-        type: 'bar',
-
-        // Chart Options
-        options : chartOptions,
-
-        data : chartData
-    };
-
-    // Create the chart
-    var lineChart = new Chart(ctx, config);
+    });
 });

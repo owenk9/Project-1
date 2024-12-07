@@ -16,6 +16,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig implements WebMvcConfigurer {
@@ -54,6 +56,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
                         .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
                 )
+                .httpBasic(withDefaults()) // Bật Basic Authentication
                 .formLogin(form -> form
                         .loginProcessingUrl("/doLogin")
                         .loginPage("/login")

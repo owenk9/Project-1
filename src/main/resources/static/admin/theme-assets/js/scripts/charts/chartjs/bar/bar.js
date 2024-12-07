@@ -1,24 +1,16 @@
 /*=========================================================================================
-    File Name: bar.js
-    Description: Chartjs bar chart
-    ----------------------------------------------------------------------------------------
-    Item Name: Chameleon Admin - Modern Bootstrap 4 WebApp & Dashboard HTML Template + UI Kit
-    Version: 1.0
-    Author: ThemeSelection
-    Author URL: https://themeselection.com/
+    Tên File: bar.js
+    Mô tả: Biểu đồ thanh bằng Chartjs cho dữ liệu bán hàng theo quý
 ==========================================================================================*/
 
-// Bar chart
+// Biểu đồ thanh
 // ------------------------------
 $(window).on("load", function(){
-
-    //Get the context of the Chart canvas element we want to select
+    // Lấy ngữ cảnh của phần tử canvas biểu đồ
     var ctx = $("#bar-chart");
 
-    // Chart Options
+    // Tùy chọn biểu đồ
     var chartOptions = {
-        // Elements options apply to all of the options unless overridden in a dataset
-        // In this case, we are setting the border of each horizontal bar to be 2px wide and green
         elements: {
             rectangle: {
                 borderWidth: 2,
@@ -28,65 +20,78 @@ $(window).on("load", function(){
         },
         responsive: true,
         maintainAspectRatio: false,
-        responsiveAnimationDuration:500,
+        responsiveAnimationDuration: 500,
         legend: {
             position: 'top',
         },
         scales: {
             xAxes: [{
                 display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Số lượng bán'
+                },
                 gridLines: {
                     color: "#f3f3f3",
                     drawTicks: false,
-                },
-                scaleLabel: {
-                    display: true,
                 }
             }],
             yAxes: [{
                 display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Quý'
+                },
                 gridLines: {
                     color: "#f3f3f3",
                     drawTicks: false,
-                },
-                scaleLabel: {
-                    display: true,
                 }
             }]
         },
         title: {
-            display: false,
-            text: 'Chart.js Horizontal Bar Chart'
+            display: true,
+            text: 'Số lượng bán hàng theo quý'
         }
     };
 
-    // Chart Data
-    var chartData = {
-        labels: ["January", "February", "March", "April"],
-        datasets: [{
-            label: "2017",
-            data: [65, 59, 80, 81],
-            backgroundColor: "#28D094",
-            hoverBackgroundColor: "rgba(40,208,148,.9)",
-            borderColor: "transparent"
-        }, {
-            label: "2018",
-            data: [28, 48, 40, 19],
-            backgroundColor: "#FF4961",
-            hoverBackgroundColor: "rgba(255,73,97,.9)",
-            borderColor: "transparent"
-        }]
-    };
+    // Tìm nạp dữ liệu quý từ backend
+    $.ajax({
+        url: '/admin/bar/quarterData',
+        method: 'GET',
+        success: function(quarterData) {
+            // Xử lý dữ liệu
+            var labels = [];
+            var quantities = [];
 
-    var config = {
-        type: 'horizontalBar',
+            quarterData.forEach(function(item) {
+                // Giả định cấu trúc dữ liệu là [quý, số lượng, tổng, trung bình, min, max]
+                labels.push('Quý ' + item[0]); // Chuyển số quý thành Quý 1, Quý 2, etc.
+                quantities.push(item[1]);   // Số lượng ở chỉ mục 1
+            });
 
-        // Chart Options
-        options : chartOptions,
+            // Dữ liệu biểu đồ
+            var chartData = {
+                labels: labels,
+                datasets: [{
+                    label: "Số lượng bán",
+                    data: quantities,
+                    backgroundColor: "#28D094",
+                    hoverBackgroundColor: "rgba(40,208,148,.9)",
+                    borderColor: "transparent"
+                }]
+            };
 
-        data : chartData
-    };
+            var config = {
+                type: 'horizontalBar',
+                options: chartOptions,
+                data: chartData
+            };
 
-    // Create the chart
-    var lineChart = new Chart(ctx, config);
+            // Tạo biểu đồ
+            var quarterChart = new Chart(ctx, config);
+        },
+        error: function(xhr, status, error) {
+            console.error("Lỗi khi tải dữ liệu quý:", error);
+        }
+    });
 });
