@@ -21,4 +21,7 @@ public class ChartAPIService {
     public List<Object[]> showCategoriesData() {
         return orderDetailRepository.repoWhereCategory();
     }
+    public List<Object[]> showCategoriesConsumption() {
+        return orderDetailRepository.getCategoryConsumptionByMonth();
+    }
 }

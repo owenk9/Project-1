@@ -86,4 +86,16 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,Integer
             "INNER JOIN users c ON p.user_id = c.id\r\n" +
             "GROUP BY c.id;", nativeQuery = true)
     public List<Object[]> reportCustomer();
+
+    // Statistics of category consumption by month
+    @Query(value = "SELECT c.category_name as name, " +
+            "MONTH(o.order_date) as month, " +
+            "SUM(od.quantity) as consumption " +
+            "FROM order_details od " +
+            "INNER JOIN orders o ON od.order_id = o.order_id " +
+            "INNER JOIN products p ON p.product_id = od.product_id " +
+            "INNER JOIN categories c ON c.category_id = p.category_id " +
+            "GROUP BY c.category_name, MONTH(o.order_date) " +
+            "ORDER BY month, name", nativeQuery = true)
+    List<Object[]> getCategoryConsumptionByMonth();
 }

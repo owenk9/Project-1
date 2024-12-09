@@ -1,108 +1,99 @@
-/*=========================================================================================
-    File Name: line.js
-    Description: Chartjs simple line chart
-    ----------------------------------------------------------------------------------------
-    Item Name: Chameleon Admin - Modern Bootstrap 4 WebApp & Dashboard HTML Template + UI Kit
-    Version: 1.0
-    Author: ThemeSelection
-    Author URL: https://themeselection.com/
-==========================================================================================*/
-
-// Line chart
-// ------------------------------
 $(window).on("load", function(){
-
-    //Get the context of the Chart canvas element we want to select
     var ctx = $("#line-chart");
 
-    // Chart Options
-    var chartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-            position: 'bottom',
-        },
-        hover: {
-            mode: 'label'
-        },
-        scales: {
-            xAxes: [{
-                display: true,
-                gridLines: {
-                    color: "#f3f3f3",
-                    drawTicks: false,
-                },
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Month'
+    // Fetch data from backend
+    $.ajax({
+        url: '/admin/bar/categoryConsumption',
+        method: 'GET',
+        success: function(data) {
+            // Process data
+            let categoryData = {};
+            let months = new Set();
+
+            // Organize data by category, filtering out negative values
+            data.forEach(item => {
+                let [categoryName, month, quantity] = item;
+
+                // Skip negative quantities
+                if (quantity > 0) {
+                    months.add(month);
+
+                    if (!categoryData[categoryName]) {
+                        categoryData[categoryName] = {};
+                    }
+                    categoryData[categoryName][month] = quantity;
                 }
-            }],
-            yAxes: [{
-                display: true,
-                gridLines: {
-                    color: "#f3f3f3",
-                    drawTicks: false,
+            });
+
+            // Prepare chart data
+            let labels = Array.from(months).sort((a, b) => a - b)
+                .map(month => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'][month - 1]);
+
+            let datasets = Object.keys(categoryData).map((category, index) => ({
+                label: category,
+                data: labels.map((_, monthIndex) =>
+                    categoryData[category][monthIndex + 1] || 0
+                ),
+                fill: false,
+                borderColor: getUniqueColor(index),
+                pointBorderColor: getUniqueColor(index),
+                pointBackgroundColor: "#FFF",
+                pointBorderWidth: 2,
+                pointHoverBorderWidth: 2,
+                pointRadius: 4,
+            }));
+
+            // Chart Options
+            var chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom',
                 },
-                scaleLabel: {
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Month'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Quantity'
+                        }
+                    }]
+                },
+                title: {
                     display: true,
-                    labelString: 'Value'
+                    text: 'Category Consumption by Month'
                 }
-            }]
-        },
-        title: {
-            display: true,
-            text: 'Chart.js Line Chart - Legend'
+            };
+
+            // Create chart configuration
+            var config = {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: chartOptions
+            };
+
+            // Create the chart
+            var lineChart = new Chart(ctx, config);
         }
-    };
+    });
 
-    // Chart Data
-    var chartData = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [{
-            label: "My First dataset",
-            data: [65, 59, 80, 81, 56, 55, 40],
-            fill: false,
-            borderDash: [5, 5],
-            borderColor: "#9C27B0",
-            pointBorderColor: "#9C27B0",
-            pointBackgroundColor: "#FFF",
-            pointBorderWidth: 2,
-            pointHoverBorderWidth: 2,
-            pointRadius: 4,
-        }, {
-            label: "My Second dataset",
-            data: [28, 48, 40, 19, 86, 27, 90],
-            fill: false,
-            borderDash: [5, 5],
-            borderColor: "#00A5A8",
-            pointBorderColor: "#00A5A8",
-            pointBackgroundColor: "#FFF",
-            pointBorderWidth: 2,
-            pointHoverBorderWidth: 2,
-            pointRadius: 4,
-        }, {
-            label: "My Third dataset - No bezier",
-            data: [45, 25, 16, 36, 67, 18, 76],
-            lineTension: 0,
-            fill: false,
-            borderColor: "#FF7D4D",
-            pointBorderColor: "#FF7D4D",
-            pointBackgroundColor: "#FFF",
-            pointBorderWidth: 2,
-            pointHoverBorderWidth: 2,
-            pointRadius: 4,
-        }]
-    };
-
-    var config = {
-        type: 'line',
-
-        // Chart Options
-        options : chartOptions,
-
-        data : chartData
-    };
-
-    // Create the chart
-    var lineChart = new Chart(ctx, config);
+    // Function to generate unique colors
+    function getUniqueColor(index) {
+        const colors = [
+            '#9C27B0', '#00A5A8', '#FF7D4D',
+            '#4CAF50', '#2196F3', '#FF5722',
+            '#673AB7', '#009688', '#FFC107'
+        ];
+        return colors[index % colors.length];
+    }
 });

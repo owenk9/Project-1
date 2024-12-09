@@ -34,6 +34,12 @@ public class ChartAPIController {
     @GetMapping("/bar/catergoriesData")
     public ResponseEntity<List<Object[]>> showCategoriesData() {
         List<Object[]> catergoriesMonth = chartAPIService.showCategoriesData();
-        return ResponseEntity.ok(catergoriesMonth);
+        return new ResponseEntity<>(catergoriesMonth,HttpStatus.OK);
+    }
+
+    @GetMapping("/bar/categoryConsumption")
+    public ResponseEntity<List<Object[]>> showCategoriesConsumption() {
+        List<Object[]> catergoriesMonth = chartAPIService.showCategoriesData();
+        return new ResponseEntity<>(catergoriesMonth,HttpStatus.OK);
     }
 }

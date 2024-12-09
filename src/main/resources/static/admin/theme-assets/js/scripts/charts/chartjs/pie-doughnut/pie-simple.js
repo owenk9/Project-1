@@ -1,46 +1,77 @@
 /*=========================================================================================
-    File Name: pie.js
-    Description: Chartjs pie chart
-    ----------------------------------------------------------------------------------------
-    Item Name: Chameleon Admin - Modern Bootstrap 4 WebApp & Dashboard HTML Template + UI Kit
-    Version: 1.0
-    Author: ThemeSelection
-    Author URL: https://themeselection.com/
+    Tên File: pie.js
+    Mô tả: Biểu đồ tròn Chartjs hiển thị số lượng theo danh mục
 ==========================================================================================*/
 
-// Pie chart
+// Biểu đồ tròn
 // ------------------------------
 $(window).on("load", function(){
-
-    //Get the context of the Chart canvas element we want to select
+    // Lấy ngữ cảnh của phần tử canvas biểu đồ
     var ctx = $("#simple-pie-chart");
 
-    // Chart Options
+    // Tùy chọn biểu đồ
     var chartOptions = {
         responsive: true,
         maintainAspectRatio: false,
-        responsiveAnimationDuration:500,
+        responsiveAnimationDuration: 500,
+        title: {
+            display: true,
+            text: 'Số Lượng Sản Phẩm Theo Danh Mục'
+        },
+        tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                    var total = dataset.data.reduce((acc, curr) => acc + curr, 0);
+                    var currentValue = dataset.data[tooltipItem.index];
+                    var percentage = Math.floor(((currentValue/total) * 100)+0.5);
+                    return `${data.labels[tooltipItem.index]}: ${currentValue} (${percentage}%)`;
+                }
+            }
+        }
     };
 
-    // Chart Data
-    var chartData = {
-        labels: ["January", "February", "March", "April", "May"],
-        datasets: [{
-            label: "My First dataset",
-            data: [85, 65, 34, 45, 35],
-            backgroundColor: ['#666EE8', '#28D094', '#FF4961','#1E9FF2', '#FF9149'],
-        }]
-    };
+    // Tìm nạp dữ liệu danh mục từ backend
+    $.ajax({
+        url: '/admin/bar/catergoriesData',
+        method: 'GET',
+        success: function(categoryData) {
+            // Xử lý dữ liệu
+            var labels = [];
+            var quantities = [];
+            var colors = [
+                '#666EE8', '#28D094', '#FF4961',
+                '#1E9FF2', '#FF9149', '#7E57C2',
+                '#4CAF50', '#FFC107', '#009688'
+            ];
 
-    var config = {
-        type: 'pie',
+            categoryData.forEach(function(item) {
+                // Giả định cấu trúc dữ liệu là [tên danh mục, số lượng, tổng, trung bình, min, max]
+                labels.push(item[0]); // Tên danh mục ở chỉ mục 0
+                quantities.push(item[1]); // Số lượng ở chỉ mục 1
+            });
 
-        // Chart Options
-        options : chartOptions,
+            // Dữ liệu biểu đồ
+            var chartData = {
+                labels: labels,
+                datasets: [{
+                    label: "Số Lượng Theo Danh Mục",
+                    data: quantities,
+                    backgroundColor: colors.slice(0, labels.length)
+                }]
+            };
 
-        data : chartData
-    };
+            var config = {
+                type: 'pie',
+                options: chartOptions,
+                data: chartData
+            };
 
-    // Create the chart
-    var pieSimpleChart = new Chart(ctx, config);
+            // Tạo biểu đồ
+            var categoryPieChart = new Chart(ctx, config);
+        },
+        error: function(xhr, status, error) {
+            console.error("Lỗi khi tải dữ liệu danh mục:", error);
+        }
+    });
 });
