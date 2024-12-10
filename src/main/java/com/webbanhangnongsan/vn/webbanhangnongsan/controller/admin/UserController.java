@@ -1,10 +1,12 @@
 package com.webbanhangnongsan.vn.webbanhangnongsan.controller.admin;
 
+import com.webbanhangnongsan.vn.webbanhangnongsan.entity.Category;
 import com.webbanhangnongsan.vn.webbanhangnongsan.entity.Product;
 import com.webbanhangnongsan.vn.webbanhangnongsan.entity.User;
 import com.webbanhangnongsan.vn.webbanhangnongsan.repository.UserRepository;
 import com.webbanhangnongsan.vn.webbanhangnongsan.service.admin.UserAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,7 @@ public class UserController extends CommonAdminController{
     UserRepository userRepository;
     @Autowired
     UserAdminService userAdminService;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/user")
     public String User(Model model) {
@@ -41,7 +44,8 @@ public class UserController extends CommonAdminController{
     @PostMapping("/addUser")
     public String addNewUser(@ModelAttribute("adminUser") User user, Model model) {
         try {
-
+            String encodedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encodedPassword);
             User savedUser = userRepository.save(user);
             model.addAttribute("message", "Thêm người dùng thành công");
             model.addAttribute("user", savedUser);
@@ -72,8 +76,10 @@ public class UserController extends CommonAdminController{
                 return "redirect:/admin/user";
             }
             existingUser.setName(user.getName());
-            existingUser.setPassword(user.getPassword());
             existingUser.setEmail(user.getEmail());
+            if(user.getPassword() != null && !user.getPassword().isEmpty()){
+                existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
             userRepository.save(existingUser);
             model.addAttribute("message", "Cập nhật người dùng thành công");
         } catch (Exception e) {
@@ -82,13 +88,26 @@ public class UserController extends CommonAdminController{
         return "redirect:/admin/user";
     }
 
+
     @GetMapping("/deleteUser/{id}")
-    public String delCategory(@PathVariable("id") Long id, Model model) {
+    public String deleteUserForm(@PathVariable("id") Long id, Model model) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            model.addAttribute("error", "Người dùng không tồn tại!");
+            return "redirect:/admin/user";
+        }
+        model.addAttribute("deleteUser", user);
+        return "admin/forms/confirm_delete_user";
+    }
+
+
+    @PostMapping("/deleteUser")
+    public String deleteUser(@ModelAttribute("deleteUser") User user, Model model) {
         try {
-            userRepository.deleteById(id);
+            userRepository.deleteById(user.getId());
             model.addAttribute("message", "Xóa người dùng thành công!");
         } catch (Exception e) {
-            model.addAttribute("message", "Xóa người dùng thất bại: " + e.getMessage());
+            model.addAttribute("error", "Không thể xóa người dùng: " + e.getMessage());
         }
         return "redirect:/admin/user";
     }

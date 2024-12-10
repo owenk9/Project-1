@@ -151,10 +151,27 @@ public class CategoryController extends CommonAdminController{
         return "redirect:/admin/category";
     }
 
+
     @GetMapping("/deleteCategory/{id}")
-    public String delCategory(@PathVariable("id") Long id, Model model) {
-        categoryRepository.deleteById(id);
-        model.addAttribute("message", "Xóa loại sản phẩm thành công!");
+    public String deleteCategoryForm(@PathVariable("id") Long id, Model model) {
+        Category category = categoryRepository.findById(id).orElse(null);
+        if (category == null) {
+            model.addAttribute("error", "Loại hàng không tồn tại!");
+            return "redirect:/admin/category";
+        }
+        model.addAttribute("deleteCategory", category);
+        return "admin/forms/confirm_delete_category";
+    }
+
+
+    @PostMapping("/deleteCategory")
+    public String deleteCategory(@ModelAttribute("deleteCategory") Category category, Model model) {
+        try {
+            categoryRepository.deleteById(category.getCategoryId());
+            model.addAttribute("message", "Xóa loại hàng thành công!");
+        } catch (Exception e) {
+            model.addAttribute("error", "Không thể xóa loại hàng: " + e.getMessage());
+        }
         return "redirect:/admin/category";
     }
 
